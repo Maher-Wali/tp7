@@ -1,0 +1,53 @@
+﻿@model Review
+
+@{
+    ViewData["Title"] = "Add Review";
+}
+
+<h1>Add Review</h1>
+
+<h4>Review</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddReview" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <!-- Movie Selection -->
+            <div class="form-group">
+                <label asp-for="MovieId" class="control-label">Movie</label>
+                <select asp-for="MovieId" class="form-control" asp-items="ViewBag.MovieId"></select>
+                <span asp-validation-for="MovieId" class="text-danger"></span>
+            </div>
+
+            <!-- Rating Field -->
+            <div class="form-group">
+                <label asp-for="Rating" class="control-label">Rating (1 to 5)</label>
+                <input asp-for="Rating" class="form-control" type="number" min="1" max="5" />
+                <span asp-validation-for="Rating" class="text-danger"></span>
+            </div>
+
+            <!-- Comment Field -->
+            <div class="form-group">
+                <label asp-for="Comment" class="control-label">Comment</label>
+                <textarea asp-for="Comment" class="form-control"></textarea>
+                <span asp-validation-for="Comment" class="text-danger"></span>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="form-group">
+                <input type="submit" value="Add Review" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Details" asp-route-id="@Model.MovieId">Back to Movie</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
